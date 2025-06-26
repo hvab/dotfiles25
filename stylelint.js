@@ -1,0 +1,18 @@
+module.exports = {
+  extends: [
+    'stylelint-config-standard',
+    'stylelint-config-recess-order'
+  ],
+  plugins: ['stylelint-order'],
+  rules: {
+    'selector-class-pattern': null,
+    'media-feature-range-notation': 'prefix',
+    'order/order': [
+      'custom-properties',
+      'dollar-variables',
+      'declarations',
+      'at-rules',
+      'rules'
+    ]
+  }
+};
