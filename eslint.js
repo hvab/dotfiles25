@@ -1,15 +1,18 @@
-module.exports = {
-  root: true,
-  env: {
-    browser: true,
-    es2024: true,
+const js = require('@eslint/js');
+const globals = require('globals');
+const prettierRecommended = require('eslint-plugin-prettier/recommended');
+
+module.exports = [
+  js.configs.recommended,
+  {
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: globals.browser,
+    },
+    rules: {
+      'no-console': 'off',
+    },
   },
-  extends: ['eslint:recommended', 'plugin:prettier/recommended'],
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-  },
-  rules: {
-    'no-console': 'off',
-  },
-};
+  prettierRecommended,
+];

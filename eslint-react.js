@@ -1,18 +1,37 @@
-module.exports = {
-  ...require('./eslint.js'),
-  extends: [
-    'plugin:react/recommended',
-    'plugin:react/jsx-runtime',
-    'plugin:prettier/recommended',
-  ],
-  plugins: ['react'],
-  settings: {
-    react: {
-      version: 'detect',
+const js = require('@eslint/js');
+const globals = require('globals');
+const reactPlugin = require('eslint-plugin-react');
+const prettierRecommended = require('eslint-plugin-prettier/recommended');
+
+module.exports = [
+  js.configs.recommended,
+  {
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: globals.browser,
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
+    rules: {
+      'no-console': 'off',
     },
   },
-  rules: {
-    'react/prop-types': 'off',
-    'react/react-in-jsx-scope': 'off',
+  reactPlugin.configs.flat.recommended,
+  reactPlugin.configs.flat['jsx-runtime'],
+  {
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
+    rules: {
+      'react/prop-types': 'off',
+      'react/react-in-jsx-scope': 'off',
+    },
   },
-};
+  prettierRecommended,
+];

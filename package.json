@@ -1,6 +1,6 @@
 {
   "name": "dotfiles25",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "eslint.js",
   "bin": {
     "dotfiles-init": "./bin/init.js"
@@ -12,19 +12,22 @@
     "./stylelint": "./stylelint.js"
   },
   "peerDependencies": {
-    "eslint": "^8.0.0",
-    "prettier": "^3.2.0",
-    "eslint-plugin-prettier": "^5.0.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-react": "^7.33.0",
-    "stylelint": "^16.0.0",
-    "stylelint-config-standard": "^36.0.0",
-    "stylelint-config-recess-order": "^3.0.0",
-    "stylelint-order": "^6.0.0"
+    "@eslint/js": "^10.0.0",
+    "eslint": "^10.0.0",
+    "prettier": "^3.8.1",
+    "eslint-plugin-prettier": "^5.5.5",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.4.0",
+    "stylelint": "^17.3.0",
+    "stylelint-config-standard": "^40.0.0",
+    "stylelint-config-recess-order": "^7.6.1",
+    "stylelint-order": "^7.0.1"
   },
   "description": "Личные конфиги для фронта (Prettier, ESLint, Stylelint и тд)",
   "scripts": {
     "init": "node bin/init.js",
+    "smoke": "node bin/smoke.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

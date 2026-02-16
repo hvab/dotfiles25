@@ -41,7 +41,7 @@ const eslintConfig =
 const eslintContent = `module.exports = require('${eslintConfig}');
 `;
 
-writeConfigFile('.eslintrc.cjs', eslintContent);
+writeConfigFile('eslint.config.cjs', eslintContent);
 
 // Prettier
 const prettierContent = `module.exports = require('dotfiles25/prettier');

@@ -21,13 +21,19 @@ npx dotfiles-init
 npx dotfiles-init --react
 ```
 
+### Smoke-проверка пакета
+
+```bash
+npm run smoke
+```
+
 ### Установка зависимостей
 
 После инициализации установи необходимые инструменты:
 
 ```bash
 # Базовый набор (ESLint + Prettier + Stylelint)
-npm i -D eslint@^8.0.0 prettier eslint-plugin-prettier eslint-config-prettier stylelint stylelint-config-standard stylelint-config-recess-order stylelint-order
+npm i -D eslint@^10.0.0 @eslint/js globals prettier eslint-plugin-prettier eslint-config-prettier stylelint stylelint-config-standard stylelint-config-recess-order stylelint-order
 
 # Дополнительно для React
 npm i -D eslint-plugin-react
@@ -37,7 +43,7 @@ npm i -D eslint-plugin-react
 
 1. **ESLint**
 
-   Создай файл `.eslintrc.cjs` в корне проекта:
+   Создай файл `eslint.config.cjs` в корне проекта:
 
    ```js
    // Базовый конфиг
