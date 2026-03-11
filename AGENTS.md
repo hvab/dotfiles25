@@ -39,6 +39,7 @@ Current git history is minimal (`Initial commit`, `Add files`), so use clear imp
 - Keep commits focused to one concern.
 - PRs should include: purpose, changed files, validation steps, and before/after examples for CLI behavior.
 - Link related issues and attach terminal output snippets when changing bootstrap logic.
+- For every user-visible or maintenance change, update `CHANGELOG.md` in the same task. Keep the journal in Russian, append a dated version section, and record both what changed and any important conclusions or compatibility notes.
 
 ## Security & Configuration Tips
 Treat generated config files as code: avoid writing unsafe shell fragments from user input in `bin/init.js`. Validate paths before file writes to prevent accidental overwrite outside the target project.
