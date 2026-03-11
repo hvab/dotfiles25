@@ -2,14 +2,14 @@
 
 const fs = require('fs');
 const path = require('path');
+const { defaultPreset, presets, templates } = require('../presets');
 
-const templates = ['.editorconfig', '.gitignore', '.browserslistrc'];
 const packageDir = path.dirname(__dirname);
 const targetDir = process.cwd();
 
-// Определяем тип проекта из аргументов
 const args = process.argv.slice(2);
-const projectType = args.includes('--react') ? 'react' : 'base';
+const presetKey = args.includes('--react') ? 'react' : defaultPreset;
+const preset = presets[presetKey];
 
 console.log('🚀 Инициализация dotfiles25...\n');
 
@@ -34,33 +34,17 @@ templates.forEach(template => {
 // Создаём конфиги
 console.log('\n📝 Создаём конфиги...\n');
 
-// ESLint
-const eslintConfig =
-  projectType === 'react' ? 'dotfiles25/eslint-react' : 'dotfiles25/eslint';
-
-const eslintContent = `module.exports = require('${eslintConfig}');
-`;
-
-writeConfigFile('eslint.config.cjs', eslintContent);
-
-// Prettier
-const prettierContent = `module.exports = require('dotfiles25/prettier');
-`;
-
-writeConfigFile('prettier.config.cjs', prettierContent);
-
-// Stylelint
-const stylelintContent = `module.exports = {
-  extends: 'dotfiles25/stylelint',
-};
-`;
-
-writeConfigFile('.stylelintrc.cjs', stylelintContent);
+Object.entries(preset.files).forEach(([filename, content]) => {
+  writeConfigFile(filename, content);
+});
 
 console.log(
-  `\n🎉 Готово! Настроен ${projectType === 'base' ? 'базовый' : projectType.toUpperCase()} проект`
+  `\n🎉 Готово! Настроен ${preset.title} проект`
 );
-console.log('\n💡 Доступные флаги:');
+console.log('\n📦 Установите зависимости:');
+console.log(`   npm i -D ${preset.peerDependencies.join(' ')}`);
+console.log('\n💡 Доступные пресеты:');
+console.log('   npx dotfiles-init');
 console.log('   npx dotfiles-init --react');
 
 function writeConfigFile(filename, content) {
