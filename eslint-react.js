@@ -6,6 +6,7 @@ const prettierRecommended = require('eslint-plugin-prettier/recommended');
 module.exports = [
   js.configs.recommended,
   {
+    files: ['**/*.{js,mjs,cjs,jsx}'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',

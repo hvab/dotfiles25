@@ -2,6 +2,32 @@
 
 Все заметные изменения в этом репозитории фиксируются в этом файле.
 
+## [0.2.1] - 2026-10-19
+
+### Изменено
+
+- Обновлены все зависимости, для которых доступны совместимые версии:
+  - `eslint` и `@eslint/js` до `^9.39.5`;
+  - `eslint-plugin-prettier` до `^5.5.7`;
+  - `globals` до `^17.13.0`;
+  - `prettier` до `^3.9.10`;
+  - `stylelint` до `^17.16.0`;
+  - `stylelint-config-recess-order` до `^7.8.0`;
+  - `stylelint-order` до `^8.1.2`.
+- Синхронизированы `package-lock.json` и команды установки в README; версия репозитория повышена до `0.2.1`.
+- В `eslint-react.js` добавлена явная маска `.js`, `.mjs`, `.cjs`, `.jsx`: без неё `.jsx` игнорировались при обычном запуске ESLint.
+- В инструкцию обновления добавлен `ncu --target minor`: обычный `ncu` может скрыть свежий патч текущей major-ветки за предложением следующей.
+
+### Выводы
+
+- ESLint 10 отложен по согласованию: [eslint-plugin-react@7.37.5](https://github.com/jsx-eslint/eslint-plugin-react/blob/v7.37.5/package.json) поддерживает ESLint только до ветки 9. Установка не требует обхода peer-зависимостей. ESLint 9 [достиг EOL 2026-08-06](https://eslint.org/version-support/); это ограничение сохраняется до обновления или замены React-плагина.
+- [ESLint 9.39.5](https://github.com/eslint/eslint/releases/tag/v9.39.5) исправляет обработку недоступного require cache; базовый flat config менять не требуется.
+- [eslint-plugin-prettier 5.5.7](https://github.com/prettier/eslint-plugin-prettier/releases/tag/v5.5.7) исправляет позиции диагностик при разных окончаниях строк и зависание при невозможности загрузить worker.
+- [Prettier 3.9.10](https://github.com/prettier/prettier/blob/3.9.10/CHANGELOG.md) включает обновления парсеров и форматирования, в том числе исправления Markdown, CSS и JS. `singleQuote`, `trailingComma` и `printWidth` остаются актуальными; форматирование существующих проектов может измениться после обновления.
+- [Stylelint 17.14–17.16](https://github.com/stylelint/stylelint/blob/17.16.0/CHANGELOG.md) добавляет опции и правило `selector-no-unmatchable`, исправляет CSS-диагностики и autofix. Новые правила автоматически не включены в наш конфиг; текущие настройки остаются актуальными.
+- [Recess Order 7.8.0](https://github.com/stormwarning/stylelint-config-recess-order/releases/tag/v7.8.0) добавляет multi-column-свойства перед flexbox, выделяет gap в отдельную группу и добавляет `transition-behavior`: порядок CSS-деклараций при autofix может измениться. [stylelint-order 8.1.2](https://github.com/hudochenkov/stylelint-order/releases/tag/8.1.2) готовит совместимость со Stylelint 18.
+- `eslint-config-prettier`, `eslint-plugin-react` и `stylelint-config-standard` уже на последних версиях. CommonJS-конфиги, Node.js `>=20.19.0` и базовые dotfiles не требуют миграции.
+
 ## [0.2.0] - 2026-06-16
 
 ### Изменено

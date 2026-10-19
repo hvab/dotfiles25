@@ -40,7 +40,7 @@
 Зависимости для проекта-потребителя:
 
 ```bash
-npm i -D eslint@^9.39.4 @eslint/js@^9.39.4 globals@^17.6.0 prettier@^3.8.4 eslint-plugin-prettier@^5.5.6 eslint-config-prettier@^10.1.8 stylelint@^17.13.0 stylelint-config-standard@^40.0.0 stylelint-config-recess-order@^7.7.0 stylelint-order@^8.1.1
+npm i -D eslint@^9.39.5 @eslint/js@^9.39.5 globals@^17.13.0 prettier@^3.9.10 eslint-plugin-prettier@^5.5.7 eslint-config-prettier@^10.1.8 stylelint@^17.16.0 stylelint-config-standard@^40.0.0 stylelint-config-recess-order@^7.8.0 stylelint-order@^8.1.2
 ```
 
 ### React-проект
@@ -57,28 +57,31 @@ npm i -D eslint@^9.39.4 @eslint/js@^9.39.4 globals@^17.6.0 prettier@^3.8.4 eslin
 Зависимости для проекта-потребителя:
 
 ```bash
-npm i -D eslint@^9.39.4 @eslint/js@^9.39.4 globals@^17.6.0 prettier@^3.8.4 eslint-plugin-prettier@^5.5.6 eslint-config-prettier@^10.1.8 eslint-plugin-react@^7.37.5 stylelint@^17.13.0 stylelint-config-standard@^40.0.0 stylelint-config-recess-order@^7.7.0 stylelint-order@^8.1.1
+npm i -D eslint@^9.39.5 @eslint/js@^9.39.5 globals@^17.13.0 prettier@^3.9.10 eslint-plugin-prettier@^5.5.7 eslint-config-prettier@^10.1.8 eslint-plugin-react@^7.37.5 stylelint@^17.16.0 stylelint-config-standard@^40.0.0 stylelint-config-recess-order@^7.8.0 stylelint-order@^8.1.2
 ```
+
+React-пресет явно включает `.js`, `.mjs`, `.cjs` и `.jsx`; TypeScript/TSX требует отдельного парсера и настроек проекта.
 
 ## Поддерживаемый стек
 
 - Node.js: `>=20.19.0`
-- ESLint: `^9.39.4`
-- `@eslint/js`: `^9.39.4`
+- ESLint: `^9.39.5`
+- `@eslint/js`: `^9.39.5`
 - `eslint-plugin-react`: `^7.37.5`
-- Prettier: `^3.8.4`
-- Stylelint: `^17.13.0`
+- Prettier: `^3.9.10`
+- Stylelint: `^17.16.0`
 - `stylelint-config-standard`: `^40.0.0`
-- `stylelint-config-recess-order`: `^7.7.0`
-- `stylelint-order`: `^8.1.1`
+- `stylelint-config-recess-order`: `^7.8.0`
+- `stylelint-order`: `^8.1.2`
 
 Известное ограничение:
 
-- `eslint@10` пока не поддерживается в React-конфиге, потому что `eslint-plugin-react@7.37.5` несовместим с этой major-веткой.
+- `eslint@10` пока не поддерживается в React-конфиге: [eslint-plugin-react@7.37.5](https://github.com/jsx-eslint/eslint-plugin-react/blob/v7.37.5/package.json) объявляет поддержку только до `eslint@9`. Оба пресета используют общую совместимую ветку `9.39.5`; установка с `--force` или `--legacy-peer-deps` не нужна.
+- ESLint 9 [достиг конца поддержки 2026-08-06](https://eslint.org/version-support/); до обновления или замены React-плагина это осознанное ограничение стека.
 
 ## Обновление
 
-1. Запустить `ncu` в корне репозитория.
+1. Запустить `ncu` в корне репозитория. Дополнительно запустить `ncu --target minor`, чтобы увидеть обновления внутри текущих major-веток.
 2. Обновить `devDependencies` в `package.json` совместимыми группами.
 3. Обновить версии в этом README.
 4. Проверить, нужны ли изменения в `eslint.js`, `eslint-react.js`, `prettier.js`, `stylelint.js`.
