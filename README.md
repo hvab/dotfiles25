@@ -13,7 +13,8 @@
 - Prettier-конфиг: `prettier.js`;
 - Stylelint-конфиг: `stylelint.js`;
 - шаблоны `.editorconfig`, `.gitignore`, `.browserslistrc`;
-- служебный `package.json` со списком зависимостей для `ncu`.
+- служебный `package.json` со списком зависимостей для `ncu`;
+- `.ncurc.json` с исключениями для сопровождения этого репозитория; в проекты-потребители его копировать не нужно.
 
 Не входит в ответственность репозитория:
 
@@ -40,7 +41,7 @@
 Зависимости для проекта-потребителя:
 
 ```bash
-npm i -D eslint@^9.39.5 @eslint/js@^9.39.5 globals@^17.13.0 prettier@^3.9.10 eslint-plugin-prettier@^5.5.7 eslint-config-prettier@^10.1.8 stylelint@^17.16.0 stylelint-config-standard@^40.0.0 stylelint-config-recess-order@^7.8.0 stylelint-order@^8.1.2
+npm i -D eslint@^9.39.5 @eslint/js@^9.39.5 globals@^17.13.0 prettier@^3.9.10 eslint-plugin-prettier@^5.5.7 eslint-config-prettier@^10.1.8 stylelint@^17.16.0 stylelint-config-standard@^40.0.0 stylelint-config-recess-order@^7.9.0 stylelint-order@^8.1.2
 ```
 
 ### React-проект
@@ -57,7 +58,7 @@ npm i -D eslint@^9.39.5 @eslint/js@^9.39.5 globals@^17.13.0 prettier@^3.9.10 esl
 Зависимости для проекта-потребителя:
 
 ```bash
-npm i -D eslint@^9.39.5 @eslint/js@^9.39.5 globals@^17.13.0 prettier@^3.9.10 eslint-plugin-prettier@^5.5.7 eslint-config-prettier@^10.1.8 eslint-plugin-react@^7.37.5 stylelint@^17.16.0 stylelint-config-standard@^40.0.0 stylelint-config-recess-order@^7.8.0 stylelint-order@^8.1.2
+npm i -D eslint@^9.39.5 @eslint/js@^9.39.5 globals@^17.13.0 prettier@^3.9.10 eslint-plugin-prettier@^5.5.7 eslint-config-prettier@^10.1.8 eslint-plugin-react@^7.37.5 stylelint@^17.16.0 stylelint-config-standard@^40.0.0 stylelint-config-recess-order@^7.9.0 stylelint-order@^8.1.2
 ```
 
 React-пресет явно включает `.js`, `.mjs`, `.cjs` и `.jsx`; TypeScript/TSX требует отдельного парсера и настроек проекта.
@@ -71,13 +72,26 @@ React-пресет явно включает `.js`, `.mjs`, `.cjs` и `.jsx`; Ty
 - Prettier: `^3.9.10`
 - Stylelint: `^17.16.0`
 - `stylelint-config-standard`: `^40.0.0`
-- `stylelint-config-recess-order`: `^7.8.0`
+- `stylelint-config-recess-order`: `^7.9.0`
 - `stylelint-order`: `^8.1.2`
 
-Известное ограничение:
+## Почему ESLint остаётся на 9
 
 - `eslint@10` пока не поддерживается в React-конфиге: [eslint-plugin-react@7.37.5](https://github.com/jsx-eslint/eslint-plugin-react/blob/v7.37.5/package.json) объявляет поддержку только до `eslint@9`. Оба пресета используют общую совместимую ветку `9.39.5`; установка с `--force` или `--legacy-peer-deps` не нужна.
 - ESLint 9 [достиг конца поддержки 2026-08-06](https://eslint.org/version-support/); до обновления или замены React-плагина это осознанное ограничение стека.
+
+`.ncurc.json` исключает только `eslint` и `@eslint/js` из обычных проверок и обновлений через `ncu`, включая patch/minor. Остальные зависимости, в том числе `eslint-plugin-react`, проверяются как обычно. После выхода совместимого React-плагина нужно перепроверить его peer-зависимости, удалить оба исключения и обновить ESLint вместе с `@eslint/js`.
+
+Что откладываем без ESLint 10:
+
+- Поддержку upstream и новые исправления: ветка 9 больше не получает обновления, включая исправления безопасности.
+- Встроенный анализ JSX-ссылок в ядре: в 10 компонент в `<Card />` учитывают `no-unused-vars` и `no-undef`. В нашем React-пресете значительную часть этого уже покрывают `react/jsx-uses-vars` и `react/jsx-no-undef`.
+- Более строгий `recommended`: `no-unassigned-vars`, `no-useless-assignment`, `preserve-caught-error`. Все три правила уже есть в установленном ESLint 9.39.5, и при необходимости их можно включить отдельно; в текущих пресетах они выключены.
+- Последующие улучшения правил. Например, в 10.13 расширены проверки `no-obj-calls` для `globalThis` и `no-unsafe-optional-chaining` для `yield*`; оба правила включены в наших пресетах.
+
+Flat config у нас уже используется. Базовый JS-пресет можно было бы перевести на 10 отдельно, но сейчас оба пресета намеренно используют одну совместимую версию ESLint.
+
+Источники: [миграция на ESLint 10](https://eslint.org/docs/latest/use/migrate-to-10.0.0), [изменения 10.13](https://github.com/eslint/eslint/releases/tag/v10.13.0).
 
 ## Обновление
 
